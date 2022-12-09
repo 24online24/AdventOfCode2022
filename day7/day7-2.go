@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -45,14 +46,16 @@ func main() {
 		}
 	}
 	// fmt.Println(filesystem)
-	sum := 0
+	spaceNeeded := 70000000 - filesystem[0].size
+	sizeToDelete := math.MaxInt
 	for _, dir := range filesystem {
-		// fmt.Println(index, dir)
-		if dir.size <= 100000 {
-			sum += dir.size
+		if dir.size > spaceNeeded {
+			if dir.size < sizeToDelete {
+				sizeToDelete = dir.size
+			}
 		}
 	}
-	fmt.Println(sum)
+	fmt.Println(sizeToDelete)
 }
 
 func changeDirectory(directoryName string, directoryIndex int) int {
