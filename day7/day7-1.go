@@ -33,22 +33,14 @@ func main() {
 	for fileScanner.Scan() {
 		lineText := fileScanner.Text()
 		lineTextSeparated := strings.Split(lineText, " ")
-		// fmt.Println(lineTextSeparated)
 		switch lineTextSeparated[1] {
 		case "cd":
 			directoryIndex = changeDirectory(lineTextSeparated[2])
-			// fmt.Println(filesystem[directoryIndex])
 		case "ls":
 			lineInBufferSeparated := listChildren(directoryIndex, fileScanner)
 			fmt.Println(filesystem)
 			if len(lineInBufferSeparated) > 0 {
-				// fmt.Println("-------------", lineInBufferSeparated)
 				directoryIndex = changeDirectory(lineInBufferSeparated[2])
-				// fmt.Println(filesystem)
-
-				// fmt.Println("\t", filesystem[directoryIndex])
-
-				// fmt.Println("******************", directoryIndex)
 			}
 		}
 	}
@@ -59,7 +51,6 @@ func main() {
 }
 
 func changeDirectory(directoryName string) int {
-	// fmt.Println("******************", directoryName)
 	for index, dir := range filesystem {
 		if dir.name == directoryName {
 			return index
@@ -72,7 +63,6 @@ func listChildren(directoryIndex int, fileScanner *bufio.Scanner) []string {
 	for fileScanner.Scan() {
 		lineText := fileScanner.Text()
 		lineTextSeparated := strings.Split(lineText, " ")
-		// fmt.Println(lineText)
 		switch lineTextSeparated[0] {
 		case "$":
 			return lineTextSeparated
@@ -86,12 +76,10 @@ func listChildren(directoryIndex int, fileScanner *bufio.Scanner) []string {
 				panic("Something went wrong with the size transformation to int!")
 			}
 
-			// filesystem[directoryIndex].size += sizeUpdate
 			directoryToUpdate := &filesystem[directoryIndex]
 			for directoryToUpdate != nil {
 				(*directoryToUpdate).size += sizeUpdate
 				fmt.Println("Updated", directoryToUpdate, "with file", lineTextSeparated, ". Size is now", directoryToUpdate.size)
-				// fmt.Println(filesystem)
 				directoryToUpdate = directoryToUpdate.parent
 			}
 		}
