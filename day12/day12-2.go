@@ -18,27 +18,29 @@ func main() {
 	read(&matrix, &iStart, &jStart, &iEnd, &jEnd)
 	matrix[iStart][jStart] = 'a'
 	matrix[iEnd][jEnd] = 'z'
-	// startPositions := []coordinates{}
-	fmt.Println(iStart, iEnd)
-	// roadForStart := leeStart(matrix, iStart, iEnd)
+	startPositions := []coordinates{}
+	roadForStart := leeStart(matrix, iStart, jStart)
 	// fmt.Println(roadForStart)
-	// for i, line := range roadForStart {
-	// 	for j, element := range line {
-	// 		if element != 0 {
-	// 			startPositions = append(startPositions, coordinates{x: j, y: i})
-	// 		}
-	// 	}
-	// }
-	// minimumRoad := len(matrix) * len(matrix[0])
-	// // fmt.Println(startPositions)
-	// for _, startPosition := range startPositions {
-	// 	road := lee(matrix, startPosition.y, startPosition.x)
-	// 	// fmt.Println(road[iEnd][jEnd])
-	// 	if road[iEnd][jEnd] < minimumRoad {
-	// 		minimumRoad = road[iEnd][jEnd]
-	// 	}
-	// }
-	// fmt.Println(minimumRoad)
+	for _, line := range roadForStart {
+		fmt.Println(line)
+	}
+	for i, line := range roadForStart {
+		for j, element := range line {
+			if element != 0 {
+				startPositions = append(startPositions, coordinates{x: j, y: i})
+			}
+		}
+	}
+	minimumRoad := len(matrix) * len(matrix[0])
+	// fmt.Println(startPositions)
+	for _, startPosition := range startPositions {
+		road := lee(matrix, startPosition.y, startPosition.x)
+		// fmt.Println(road[iEnd][jEnd])
+		if road[iEnd][jEnd] < minimumRoad {
+			minimumRoad = road[iEnd][jEnd]
+		}
+	}
+	fmt.Println(minimumRoad)
 }
 
 func read(matrix *[][]rune, iStart *int, jStart *int, iEnd *int, jEnd *int) {
@@ -138,8 +140,8 @@ func leeStart(matrix [][]rune, iStart int, jStart int) [][]int {
 			next_i := i + direction.y
 			next_j := j + direction.x
 			if viable(matrix, next_i, next_j) {
-				fmt.Println("Test 1")
-				fmt.Println(matrix[next_i][next_j], 'a')
+				// fmt.Println("Test 1")
+				// fmt.Println(matrix[next_i][next_j], 'a')
 				if matrix[next_i][next_j] <= 'a' && road[next_i][next_j] == 0 {
 					road[next_i][next_j] = road[i][j] + 1
 					coordinatesQueue = append(coordinatesQueue, coordinates{x: next_j, y: next_i})
