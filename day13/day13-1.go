@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+<<<<<<< HEAD
 	"strconv"
 	"strings"
 )
@@ -137,4 +138,19 @@ func nextSand(cave *[200][600]rune) bool {
 	// printCave(*cave, 0, 494, 9, 503)
 	return true
 	// time.Sleep(time.Second)
+=======
+)
+
+func main() {
+	inputFile, err := os.Open("testdata.in")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fileScanner := bufio.NewScanner(inputFile)
+	fileScanner.Split(bufio.ScanLines)
+	for fileScanner.Scan() {
+		text := fileScanner.Text()
+		fmt.Println(text)
+	}
+>>>>>>> 8906885b664b8a0cccaae430bc79ae929ee5d97e
 }
